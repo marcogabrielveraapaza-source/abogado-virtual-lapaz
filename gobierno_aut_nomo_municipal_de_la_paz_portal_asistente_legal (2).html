@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gobierno Autónomo Municipal de La Paz - Portal & Asistente Legal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lp: {
+                            cyan: '#00a9e0',
+                            magenta: '#e20074',
+                            yellow: '#ffed00',
+                            orange: '#f37021',
+                            green: '#009944',
+                            darkblue: '#0b192c',
+                            gold: '#b8860b',
+                            red: '#d91424',
+                            paceñoRed: '#d91424',
+                            paceñoGreen: '#008744'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .gradient-lp {
+            background: linear-gradient(135deg, #d91424 0%, #008744 100%);
+        }
+        .bandera-paceña {
+            background: linear-gradient(180deg, #d91424 50%, #008744 50%);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 font-sans min-h-screen flex flex-col justify-between antialiased selection:bg-lp-paceñoRed selection:text-white">
+
+    <!-- Top Ribbon / Bandera de La Paz (Rojo Punzó y Verde Esmeralda) -->
+    <div class="h-2.5 w-full flex">
+        <div class="w-1/2 bg-[#d91424]"></div>
+        <div class="w-1/2 bg-[#008744]"></div>
+    </div>
+
+    <!-- Header / Navbar Institucional -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between">
+            
+            <!-- Logo GAMLP "La Paz Ciudad en Movimiento" -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                <div class="flex items-center space-x-3">
+                    
+                    <!-- Isotipo Oficial: Bandera Rojo y Verde Paceña -->
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="relative w-11 h-12 flex items-center justify-center">
+                            <svg viewBox="0 0 100 120" class="w-full h-full drop-shadow-sm">
+                                <path d="M10 10 L90 10 L90 110 L10 110 Z" fill="#ffffff" rx="8"/>
+                                <path d="M12 12 L88 12 L88 58 L12 58 Z" fill="#d91424"/>
+                                <path d="M12 58 L88 58 L88 108 L12 108 Z" fill="#008744"/>
+                                <rect x="12" y="12" width="76" height="96" fill="none" stroke="#ffffff" stroke-width="3" rx="4"/>
+                                <path d="M50 25 L65 55 L35 55 Z" fill="#ffffff" opacity="0.9"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Logotipo Completo -->
+                    <div class="flex flex-col justify-center">
+                        <div class="flex items-center gap-1.5">
+                            <svg viewBox="0 0 140 100" class="w-10 h-8 sm:w-11 sm:h-9">
+                                <polygon points="5,85 50,20 85,60" fill="#00a9e0"/>
+                                <polygon points="50,20 100,5 125,50" fill="#008744"/>
+                                <polygon points="100,5 138,85 90,75" fill="#e20074"/>
+                                <polygon points="35,85 85,60 115,90" fill="#00bcda"/>
+                                <polygon points="70,70 110,30 135,85" fill="#f37021"/>
+                            </svg>
+                            <div class="flex flex-col -space-y-1">
+                                <span class="font-montserrat font-black text-slate-900 text-lg sm:text-2xl tracking-tight leading-none">
+                                    La Paz
+                                </span>
+                                <span class="text-[10px] sm:text-[11px] font-extrabold text-[#00a9e0] tracking-tighter leading-tight lowercase">
+                                    ciudadenmovimiento
+                                </span>
+                            </div>
+                        </div>
+                        <span class="text-[8px] sm:text-[9px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+                            Gobierno Autónomo Municipal
+                        </span>
+                    </div>
+
+                    <div class="hidden lg:flex items-center space-x-3 border-l border-slate-300 pl-4 py-1">
+                        <div class="flex flex-col">
+                            <span class="text-[11px] font-medium text-slate-500 leading-tight">Secretaría Municipal de</span>
+                            <span class="text-xs font-black text-[#00a9e0] uppercase tracking-wider leading-tight">Asesoría Jurídica y Legal</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <nav class="hidden md:flex items-center space-x-2">
+                <button onclick="switchTab('home')" id="nav-home" class="px-4 py-2 rounded-xl text-xs font-bold text-red-600 bg-red-50 transition flex items-center gap-2">
+                    <i class="fa-solid fa-house"></i> Inicio
+                </button>
+                <button onclick="switchTab('social')" id="nav-social" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition flex items-center gap-2">
+                    <i class="fa-solid fa-globe"></i> Redes y Portal
+                </button>
+                <button onclick="switchTab('chat')" id="nav-chat" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition flex items-center gap-2">
+                    <i class="fa-solid fa-scale-balanced text-amber-500"></i> Abogado Virtual GAMLP
+                </button>
+            </nav>
+
+            <!-- Action Button -->
+            <div class="flex items-center gap-2">
+                <button onclick="switchTab('chat')" class="bg-gradient-to-r from-red-600 to-emerald-600 hover:opacity-95 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>Consulta Legal 24/7</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Bar -->
+        <div class="md:hidden flex border-t border-slate-200 bg-white justify-around py-2 px-1 text-xs text-slate-600 font-semibold">
+            <button onclick="switchTab('home')" class="flex flex-col items-center gap-0.5" id="mobile-nav-home">
+                <i class="fa-solid fa-house text-base"></i>
+                <span>Inicio</span>
+            </button>
+            <button onclick="switchTab('social')" class="flex flex-col items-center gap-0.5" id="mobile-nav-social">
+                <i class="fa-solid fa-share-nodes text-base"></i>
+                <span>Redes</span>
+            </button>
+            <button onclick="switchTab('chat')" class="flex flex-col items-center gap-0.5" id="mobile-nav-chat">
+                <i class="fa-solid fa-scale-balanced text-base text-amber-500"></i>
+                <span>Abogado Virtual</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- App Main Container -->
+    <div id="appContainer" class="flex-1 flex flex-col">
+
+        <!-- ================= PAGE 1: INICIO (LANDING) ================= -->
+        <section id="page-home" class="flex-1 flex flex-col">
+            <div class="bg-slate-950 text-white relative overflow-hidden py-12 sm:py-20 px-4">
+                <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-red-600 opacity-25 blur-3xl"></div>
+                <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-emerald-600 opacity-25 blur-3xl"></div>
+
+                <div class="max-w-6xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-7 space-y-5 text-center md:text-left">
+                        <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-3.5 py-1.5 rounded-full backdrop-blur-md">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span class="text-xs font-semibold text-slate-200">Asistencia Ciudadana 24 Horas</span>
+                        </div>
+                        <h1 class="text-3xl sm:text-5xl font-montserrat font-black leading-tight">
+                            Portal Legal & <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-emerald-400">Abogado Virtual GAMLP</span>
+                        </h1>
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                            Orientación legal gratuita, consulta de trámites de Catastro, Licencias de Funcionamiento, Impuestos Municipales (ATM) y generación de cartas modelo conforme a la normativa de La Paz, Bolivia.
+                        </p>
+                        <div class="flex flex-wrap gap-3 justify-center md:justify-start pt-2">
+                            <button onclick="switchTab('chat')" class="bg-gradient-to-r from-red-600 to-emerald-600 hover:opacity-95 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg transition flex items-center gap-2 text-sm">
+                                <i class="fa-solid fa-comments"></i> Iniciar Consulta Legal
+                            </button>
+                            <button onclick="switchTab('social')" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3.5 rounded-xl border border-white/20 backdrop-blur-md transition flex items-center gap-2 text-sm">
+                                <i class="fa-solid fa-globe"></i> Redes y Canales Oficiales
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-5 flex justify-center">
+                        <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-2xl w-full max-w-sm space-y-4 text-center">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-500 text-slate-950 flex items-center justify-center text-3xl mx-auto shadow-md">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </div>
+                            <h3 class="font-montserrat font-bold text-lg text-white">Lic. Gabriel — Abogado Virtual</h3>
+                            <p class="text-xs text-slate-400">Responde inquietudes sobre la Ley N° 482, Código Civil, alquileres y normativa municipal.</p>
+                            <button onclick="switchTab('chat')" class="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-3 rounded-xl transition text-xs flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> Abrir Chat Interactivo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Servicios Destacados -->
+            <div class="max-w-6xl mx-auto px-4 py-12 space-y-8">
+                <div class="text-center space-y-2">
+                    <h2 class="text-2xl font-montserrat font-black text-slate-900">Trámites y Consultas Frecuentes</h2>
+                    <p class="text-xs text-slate-500">Seleccione el área de su interés para obtener información inmediata o generar plantillas.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 hover:shadow-md transition">
+                        <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-store"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-sm">Licencias de Funcionamiento</h3>
+                        <p class="text-xs text-slate-600">Requisitos para actividades económicas, registro en la plataforma i-Gob 24/7 y renovaciones.</p>
+                        <button onclick="switchTab('chat'); setTimeout(() => setLegalMode('calculator'), 100);" class="text-xs font-bold text-sky-600 hover:underline inline-flex items-center gap-1">
+                            Ver requisitos <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 hover:shadow-md transition">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-sm">Catastro Municipal</h3>
+                        <p class="text-xs text-slate-600">Orientación en empadronamiento, certificado de catastro y requisitos en Derechos Reales.</p>
+                        <button onclick="switchTab('chat'); setTimeout(() => setLegalMode('calculator'), 100);" class="text-xs font-bold text-emerald-600 hover:underline inline-flex items-center gap-1">
+                            Ver requisitos <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 hover:shadow-md transition">
+                        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-file-signature"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-sm">Plantillas y Cartas Legales</h3>
+                        <p class="text-xs text-slate-600">Modelos de devolución de garantía de alquiler, descargos de multas e instancias institucionales.</p>
+                        <button onclick="switchTab('chat'); setTimeout(() => setLegalMode('documents'), 100);" class="text-xs font-bold text-amber-600 hover:underline inline-flex items-center gap-1">
+                            Generar modelo <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 2: REDES Y PORTAL OFICIAL ================= -->
+        <section id="page-social" class="hidden flex-1 max-w-6xl w-full mx-auto p-4 space-y-6">
+            <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <h2 class="text-xl font-montserrat font-bold text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-globe text-sky-500"></i> Canales y Redes Oficiales GAMLP
+                </h2>
+                <p class="text-xs text-slate-600">Consulte los medios de comunicación y plataformas digitales oficiales del Gobierno Autónomo Municipal de La Paz.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="https://www.lapaz.bo" target="_blank" class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-sky-500 hover:shadow-md transition space-y-3 group">
+                    <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl font-bold group-hover:bg-sky-600 group-hover:text-white transition">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-sm">Página Web Oficial (lapaz.bo)</h3>
+                    <p class="text-xs text-slate-500">Acceso al portal institucional, i-Gob 24/7, secretarías municipales y normativa.</p>
+                </a>
+
+                <a href="https://www.facebook.com/MunicipioDeLaPaz" target="_blank" class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-500 hover:shadow-md transition space-y-3 group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold group-hover:bg-blue-600 group-hover:text-white transition">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-sm">Facebook Verificado</h3>
+                    <p class="text-xs text-slate-500">Comunicados oficiales, informes de vialidad, actividades culturales y transmisiones en vivo.</p>
+                </a>
+
+                <a href="https://www.tiktok.com/@alcaldialpz" target="_blank" class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-slate-900 hover:shadow-md transition space-y-3 group">
+                    <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-900 flex items-center justify-center text-xl font-bold group-hover:bg-slate-900 group-hover:text-white transition">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-sm">TikTok Official (@alcaldialpz)</h3>
+                    <p class="text-xs text-slate-500">Videos dinámicos informativos, avances de obras y gestión municipal paceña.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3: ABOGADO VIRTUAL INTERACTIVO ================= -->
+        <section id="page-chat" class="hidden flex-1 max-w-7xl w-full mx-auto p-2 sm:p-4 flex flex-col min-h-0">
+            
+            <!-- Header Informativo y Selector de Modos -->
+            <div class="bg-gradient-to-r from-slate-900 via-slate-850 to-emerald-950 text-white rounded-2xl p-4 sm:p-5 mb-4 shadow-lg border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 to-amber-500 text-slate-950 flex items-center justify-center text-2xl shadow-md flex-shrink-0">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-lg sm:text-xl font-montserrat font-extrabold text-white">Lic. Gabriel — Abogado Virtual GAMLP</h2>
+                            <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">En Línea</span>
+                        </div>
+                        <p class="text-xs text-slate-300 mt-0.5">Asistencia legal automatizada basada en la Ley N° 482, Código Civil y Reglamentos Municipales de La Paz.</p>
+                    </div>
+                </div>
+
+                <!-- Tabs Internas del Abogado Virtual -->
+                <div class="flex bg-slate-800/80 p-1 rounded-xl border border-slate-700/60 text-xs font-semibold w-full md:w-auto justify-center">
+                    <button onclick="setLegalMode('chat')" id="mode-btn-chat" class="px-3.5 py-1.5 rounded-lg text-amber-300 bg-slate-900 shadow transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-comments"></i> Chat Orientativo
+                    </button>
+                    <button onclick="setLegalMode('documents')" id="mode-btn-documents" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-signature"></i> Plantillas & Cartas
+                    </button>
+                    <button onclick="setLegalMode('calculator')" id="mode-btn-calculator" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-list-check"></i> Guía de Trámites
+                    </button>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 1: VISTA CHAT -->
+            <div id="legal-view-chat" class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 min-h-[520px]">
+                
+                <!-- Panel Izquierdo: Categorías -->
+                <div class="lg:col-span-4 bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                                <i class="fa-solid fa-folder-open text-amber-500"></i> Categorías de Consulta
+                            </span>
+                            <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">GAMLP</span>
+                        </div>
+
+                        <!-- Categorías Temáticas -->
+                        <div class="space-y-2">
+                            <button onclick="sendQuickTopic('¿Cuáles son los requisitos completos para obtener la Licencia de Funcionamiento comercial en La Paz?')" class="w-full text-left p-2.5 rounded-xl border border-slate-200 hover:border-sky-500 hover:bg-sky-50 transition group flex items-start space-x-3">
+                                <div class="w-8 h-8 rounded-lg bg-sky-100 text-sky-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:bg-sky-600 group-hover:text-white transition">
+                                    <i class="fa-solid fa-store"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-slate-800">Licencias de Funcionamiento</div>
+                                    <div class="text-[11px] text-slate-500">Apertura comercial, i-Gob 24/7</div>
+                                </div>
+                            </button>
+
+                            <button onclick="sendQuickTopic('¿Qué requisitos y planos necesito para el Certificado de Catastro Municipal en el GAMLP?')" class="w-full text-left p-2.5 rounded-xl border border-slate-200 hover:border-pink-500 hover:bg-pink-50 transition group flex items-start space-x-3">
+                                <div class="w-8 h-8 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:bg-pink-600 group-hover:text-white transition">
+                                    <i class="fa-solid fa-map-location-dot"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-slate-800">Catastro y Terrenos</div>
+                                    <div class="text-[11px] text-slate-500">Empadronamiento, planos, derechos reales</div>
+                                </div>
+                            </button>
+
+                            <button onclick="sendQuickTopic('¿Cómo consultar deudas y beneficiarme del perdonazo tributario en la ATM La Paz?')" class="w-full text-left p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 transition group flex items-start space-x-3">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition">
+                                    <i class="fa-solid fa-calculator"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-slate-800">Impuestos Municipales (ATM)</div>
+                                    <div class="text-[11px] text-slate-500">Inmuebles, vehículos, descuentos</div>
+                                </div>
+                            </button>
+
+                            <button onclick="sendQuickTopic('¿Cómo reclamar la devolución del depósito de garantía en un contrato de alquiler de vivienda?')" class="w-full text-left p-2.5 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50 transition group flex items-start space-x-3">
+                                <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm flex-shrink-0 group-hover:bg-amber-600 group-hover:text-white transition">
+                                    <i class="fa-solid fa-key"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-slate-800">Alquileres y Vivienda</div>
+                                    <div class="text-[11px] text-slate-500">Contratos, garantías, desalojos</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 text-white p-3.5 rounded-xl border border-slate-800 text-xs space-y-2">
+                        <div class="font-bold text-amber-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-building-columns"></i> Subalcaldías de La Paz
+                        </div>
+                        <p class="text-[11px] text-slate-300">¿Prefiere atención presencial? Diríjase al Edificio Anexo Camacho o la Subalcaldía de su Macrodistrito.</p>
+                    </div>
+                </div>
+
+                <!-- Panel Derecho: Chat Interactivo -->
+                <div class="lg:col-span-8 bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col overflow-hidden">
+                    
+                    <div class="bg-slate-900 text-white p-3 border-b border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-red-600 text-white flex items-center justify-center font-bold text-xs shadow">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-xs text-white">Abogado Virtual GAMLP</h3>
+                                <p class="text-[10px] text-slate-400">Sesión Activa — Asesoría Legal Ciudadana</p>
+                            </div>
+                        </div>
+                        <button onclick="clearChat()" class="text-xs text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-700 transition flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-right text-[10px]"></i> Limpiar Chat
+                        </button>
+                    </div>
+
+                    <div id="chatBox" class="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-50/50 max-h-[420px]">
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-xl bg-slate-900 text-amber-400 flex items-center justify-center flex-shrink-0 text-xs font-bold shadow">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </div>
+                            <div class="max-w-[85%] bg-white border border-slate-200 rounded-2xl rounded-tl-none p-4 text-slate-800 shadow-sm space-y-2">
+                                <div class="font-bold text-xs text-slate-900 flex items-center justify-between">
+                                    <span>Lic. Gabriel — Asesor Jurídico GAMLP</span>
+                                    <span class="text-[10px] text-slate-400 font-normal">Ahora</span>
+                                </div>
+                                <p class="text-xs leading-relaxed">
+                                    Bienvenido al servicio de <strong>Orientación Legal Gratuita del GAMLP</strong>.
+                                </p>
+                                <p class="text-xs leading-relaxed">
+                                    Puedo orientarle sobre <strong>Licencias de Funcionamiento, Catastro Municipal, Impuestos de Inmuebles/Vehículos (ATM), Contratos de Alquiler o Consultas Laborales</strong>. ¿En qué le puedo colaborar hoy?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="chatForm" onsubmit="handleChatSubmit(event)" class="p-3 bg-white border-t border-slate-200 flex items-center gap-2">
+                        <input 
+                            type="text" 
+                            id="userInput" 
+                            placeholder="Escriba su consulta legal sobre trámites o leyes en La Paz..." 
+                            class="flex-1 bg-slate-100 text-slate-800 text-xs sm:text-sm rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-900 border border-transparent transition"
+                            autocomplete="off"
+                            required
+                        >
+                        <button 
+                            type="submit" 
+                            class="bg-slate-900 hover:bg-red-600 text-amber-300 hover:text-white font-bold px-5 py-3 rounded-xl transition shadow flex items-center gap-2 text-xs flex-shrink-0"
+                        >
+                            <span>Consultar</span>
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: GENERADOR DE PLANTILLAS -->
+            <div id="legal-view-documents" class="hidden flex-1 bg-white rounded-2xl border border-slate-200 p-6 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <h3 class="text-lg font-montserrat font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-file-signature text-emerald-600"></i> Generador de Cartas y Modelos Legales GAMLP
+                    </h3>
+                    <p class="text-xs text-slate-600 mt-1">Seleccione el modelo de carta que requiere, complete sus datos y descargue el texto listo para presentar.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
+                        <span class="bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Alquileres</span>
+                        <h4 class="font-bold text-sm text-slate-900">Devolución de Garantía</h4>
+                        <p class="text-xs text-slate-500">Para exigir la restitución del depósito de alquiler vencido conforme al Código Civil.</p>
+                        <button onclick="generateLegalDoc('garantia')" class="w-full bg-slate-900 hover:bg-emerald-600 text-white font-bold py-2 rounded-xl text-xs transition">
+                            Generar Modelo
+                        </button>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
+                        <span class="bg-sky-100 text-sky-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Trámites Municipal</span>
+                        <h4 class="font-bold text-sm text-slate-900">Descargo de Multa Municipal</h4>
+                        <p class="text-xs text-slate-500">Presentación de descargos ante la Intendencia o Subalcaldía.</p>
+                        <button onclick="generateLegalDoc('multa')" class="w-full bg-slate-900 hover:bg-sky-600 text-white font-bold py-2 rounded-xl text-xs transition">
+                            Generar Modelo
+                        </button>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
+                        <span class="bg-pink-100 text-pink-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Comercio</span>
+                        <h4 class="font-bold text-sm text-slate-900">Solicitud de Licencia</h4>
+                        <p class="text-xs text-slate-500">Solicitud formal ante la Dirección de Actividades Económicas del GAMLP.</p>
+                        <button onclick="generateLegalDoc('licencia')" class="w-full bg-slate-900 hover:bg-pink-600 text-white font-bold py-2 rounded-xl text-xs transition">
+                            Generar Modelo
+                        </button>
+                    </div>
+                </div>
+
+                <div id="docPreviewArea" class="hidden bg-slate-900 text-slate-100 rounded-2xl p-5 space-y-3 font-mono text-xs">
+                    <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                        <span class="text-amber-400 font-bold">Documento Generado:</span>
+                        <button onclick="copyDocToClipboard()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-3 py-1 rounded-lg text-xs transition">
+                            <i class="fa-solid fa-copy"></i> Copiar Texto
+                        </button>
+                    </div>
+                    <textarea id="docText" rows="10" class="w-full bg-slate-950 text-slate-200 p-3 rounded-xl border border-slate-800 focus:outline-none"></textarea>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3: GUÍA PASO A PASO -->
+            <div id="legal-view-calculator" class="hidden flex-1 bg-white rounded-2xl border border-slate-200 p-6 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <h3 class="text-lg font-montserrat font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-sky-600"></i> Guía Interactiva de Requisitos Municipales La Paz
+                    </h3>
+                    <p class="text-xs text-slate-600 mt-1">Verifique qué documentos necesita antes de acudir a las oficinas presenciales o ingresar a i-Gob 24/7.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-slate-200 rounded-2xl p-5 space-y-3">
+                        <h4 class="font-bold text-slate-900 text-sm border-b border-slate-100 pb-2">📋 Licencia de Funcionamiento Comerciales</h4>
+                        <ul class="text-xs text-slate-700 space-y-2">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-0.5"></i> Cédula de Identidad original y fotocopia del titular.</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-0.5"></i> Factura de luz reciente del inmueble comercial.</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-0.5"></i> Croquis de ubicación exacta del establecimiento.</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-0.5"></i> Cuenta activa en plataforma i-Gob 24/7 (lapaz.bo).</li>
+                        </ul>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-2xl p-5 space-y-3">
+                        <h4 class="font-bold text-slate-900 text-sm border-b border-slate-100 pb-2">🏛️ Certificado de Catastro Inmobiliario GAMLP</h4>
+                        <ul class="text-xs text-slate-700 space-y-2">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-0.5"></i> Folio Real actualizado emitido por Derechos Reales.</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-0.5"></i> Comprobantes de pago de impuestos IPBI de las últimas 5 gestiones.</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-0.5"></i> Plano de Levantamiento Topográfico/Edificación visado.</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-500 mt-0.5"></i> Cédula de Identidad del propietario registrado.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- Institutional Footer GAMLP -->
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-900 py-6 px-4 text-xs">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex flex-col sm:flex-row items-center gap-2 text-center md:text-left">
+                <span class="text-white font-montserrat font-bold">Gobierno Autónomo Municipal de La Paz</span>
+                <span class="text-slate-600 hidden sm:inline">•</span>
+                <span class="text-slate-400">Palacio Consistorial: Calle Mercado esq. Socabaya</span>
+            </div>
+            
+            <div class="flex items-center space-x-4 text-base">
+                <a href="https://www.lapaz.bo" target="_blank" class="hover:text-sky-400 transition" title="Portal lapaz.bo"><i class="fa-solid fa-globe"></i></a>
+                <a href="https://www.facebook.com/MunicipioDeLaPaz" target="_blank" class="hover:text-blue-500 transition" title="Facebook GAMLP"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@alcaldialpz" target="_blank" class="hover:text-white transition" title="TikTok @alcaldialpz"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto mt-4 pt-4 border-t border-slate-900/60 text-center text-[11px] text-slate-500">
+            © 2026 Gobierno Autónomo Municipal de La Paz (GAMLP) — La Paz, Bolivia.
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Navegación principal de Pestañas
+        function switchTab(tabId) {
+            const tabs = ['home', 'social', 'chat'];
+            tabs.forEach(id => {
+                const section = document.getElementById(`page-${id}`);
+                const navBtn = document.getElementById(`nav-${id}`);
+                const mobileNavBtn = document.getElementById(`mobile-nav-${id}`);
+
+                if (section) {
+                    if (id === tabId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                }
+
+                if (navBtn) {
+                    if (id === tabId) {
+                        navBtn.className = 'px-4 py-2 rounded-xl text-xs font-bold text-red-600 bg-red-50 transition flex items-center gap-2';
+                    } else {
+                        navBtn.className = 'px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition flex items-center gap-2';
+                    }
+                }
+
+                if (mobileNavBtn) {
+                    if (id === tabId) {
+                        mobileNavBtn.className = 'flex flex-col items-center gap-0.5 text-red-600 font-bold';
+                    } else {
+                        mobileNavBtn.className = 'flex flex-col items-center gap-0.5 text-slate-600';
+                    }
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Control de Modos Internos del Abogado Virtual
+        function setLegalMode(mode) {
+            const views = ['chat', 'documents', 'calculator'];
+            views.forEach(m => {
+                const viewEl = document.getElementById(`legal-view-${m}`);
+                const btn = document.getElementById(`mode-btn-${m}`);
+                if (viewEl) viewEl.classList.add('hidden');
+                if (btn) {
+                    btn.classList.remove('bg-slate-900', 'text-amber-300', 'shadow');
+                    btn.classList.add('text-slate-300');
+                }
+            });
+
+            const activeView = document.getElementById(`legal-view-${mode}`);
+            const activeBtn = document.getElementById(`mode-btn-${mode}`);
+            if (activeView) activeView.classList.remove('hidden');
+            if (activeBtn) activeBtn.classList.add('bg-slate-900', 'text-amber-300', 'shadow');
+        }
+
+        // Generador de plantillas de documentos
+        function generateLegalDoc(type) {
+            const previewArea = document.getElementById('docPreviewArea');
+            const docText = document.getElementById('docText');
+            if (!previewArea || !docText) return;
+
+            previewArea.classList.remove('hidden');
+            const fechaActual = new Date().toLocaleDateString('es-BO', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            if (type === 'garantia') {
+                docText.value = `NUESTRA SEÑORA DE LA PAZ, ${fechaActual.toUpperCase()}\n\n` +
+                                `Señor(a):\n` +
+                                `[Nombre del Propietario / Arrendador]\n` +
+                                `Presente.-\n\n` +
+                                `REF.: SOLICITUD FORMAL DE DEVOLUCIÓN DE DEPÓSITO DE GARANTÍA DE ALQUILER\n\n` +
+                                `De mi mayor consideración:\n\n` +
+                                `Mediante la presente comunicación, me dirijo a su persona en relación al Contrato de Arrendamiento suscrito sobre el inmueble ubicado en la Zona [Nombre de Zona], Calle [Nombre de Calle], N° [Número].\n\n` +
+                                `Habiendo concluido el plazo contractual y habiendo realizado la entrega formal del inmueble en fecha de hoy, así como estando al día en el pago de alquileres y servicios básicos (EPSAS, DELAPAZ), SOLICITO formalmente la devolución de la suma de Bs. [Monto en Bolívares], correspondiente al Depósito de Garantía entregado al inicio del contrato conforme establece el Código Civil Boliviano.\n\n` +
+                                `Agradeciendo su oportuna atención a la presente, me despido atentamente.\n\n` +
+                                `_____________________________\n` +
+                                `[Nombre del Inquilino]\n` +
+                                `C.I. N° [Número de Cédula] LP\n` +
+                                `Teléfono: [Teléfono de Contacto]`;
+            } else if (type === 'multa') {
+                docText.value = `NUESTRA SEÑORA DE LA PAZ, ${fechaActual.toUpperCase()}\n\n` +
+                                `SEÑOR SUBALCALDE / DIRECTOR DE ACTIVIDADES ECONÓMICAS\n` +
+                                `GOBIERNO AUTÓNOMO MUNICIPAL DE LA PAZ (GAMLP)\n` +
+                                `Presente.-\n\n` +
+                                `REF.: SOLICITUD DE DESCARGO Y REVISIÓN DE NOTIFICACIÓN DE MULTA MUNICIPAL\n\n` +
+                                `De mi consideración:\n\n` +
+                                `Yo, [Nombre Completo], con C.I. N° [Número] LP, titular de la Actividad Económica con Licencia N° [Número de Licencia o Trámite], ubicada en el Macrodistrito [Nombre del Macrodistrito], me presento ante su autoridad respetuosamente manifestando:\n\n` +
+                                `Que habiendo sido notificado con la boleta N° [Número Boleta], solicito se sirva disponer la revisión y consideración de descargos adjuntos, debido a que [Explicar brevemente el motivo: cumplimiento de norma, fuerza mayor, etc.].\n\n` +
+                                `Sin otro particular, me despido respetuosamente.\n\n` +
+                                `_____________________________\n` +
+                                `[Firma del Solicitante]\n` +
+                                `C.I. N° [Número de Cédula]`;
+            } else if (type === 'licencia') {
+                docText.value = `NUESTRA SEÑORA DE LA PAZ, ${fechaActual.toUpperCase()}\n\n` +
+                                `SEÑORES: SECRETARÍA MUNICIPAL DE DESARROLLO ECONÓMICO - GAMLP\n` +
+                                `Presente.-\n\n` +
+                                `REF.: SOLICITUD DE VERIFICACIÓN PARA LICENCIA DE FUNCIONAMIENTO\n\n` +
+                                `Distinguidos Señores:\n\n` +
+                                `Solicito a su unidad la inspección técnica de verificación para la emisión de Licencia de Funcionamiento de la actividad comercial denominada "[Nombre del Negocio]", del rubro [Rubro del Negocio], ubicada en la Av./Calle [Dirección].\n\n` +
+                                `Adjunto croquis de ubicación y factura de servicio de energía eléctrica conforme a requisitos del portal i-Gob 24/7.\n\n` +
+                                `Atentamente,\n\n` +
+                                `_____________________________\n` +
+                                `[Nombre del Solicitante]\n` +
+                                `C.I. N° [Número de Cédula]`;
+            }
+        }
+
+        // Copiar texto generado
+        function copyDocToClipboard() {
+            const copyText = document.getElementById("docText");
+            if (!copyText) return;
+            copyText.select();
+            document.execCommand("copy");
+            alert("¡Texto copiado al portapapeles con éxito!");
+        }
+
+        // Respuestas del Abogado Virtual
+        function getBotResponse(input) {
+            const text = input.toLowerCase();
+            if (text.includes('licencia') || text.includes('funcionamiento') || text.includes('negocio') || text.includes('comercial')) {
+                return "Para tramitar la **Licencia de Funcionamiento** en La Paz:\n1. Ingrese a la plataforma **i-Gob 24/7** (lapaz.bo).\n2. Presente fotocopia de C.I. y factura reciente de luz (DELAPAZ).\n3. Croquis de ubicación del local comercial.\n4. Si expende alimentos o bebidas, requiere carnet de manipulación e inspección de la Intendencia Municipal.";
+            } else if (text.includes('catastro') || text.includes('plano') || text.includes('inmueble') || text.includes('terreno')) {
+                return "Para el **Certificado de Catastro Municipal (GAMLP)** se requiere:\n1. Folio Real actualizado emitido por Derechos Reales.\n2. Comprobantes de pago de impuestos IPBI de las últimas 5 gestiones.\n3. Plano de levantamiento topográfico o edificación visado.\n4. Documento de identidad del propietario.";
+            } else if (text.includes('impuesto') || text.includes('atm') || text.includes('deuda') || text.includes('perdonazo')) {
+                return "En la **Administración Tributaria Municipal (ATM)** del GAMLP:\n- Puede verificar deudas de Inmuebles o Vehículos ingresando su N° de Inmueble o Placa en el portal oficial.\n- Para acogerse a planes de pago o descuentos por pago al contado, diríjase al Edificio Mercado (esq. Socabaya) o Subalcaldías.";
+            } else if (text.includes('alquiler') || text.includes('garantia') || text.includes('inquilino') || text.includes('contrato')) {
+                return "En materia de **Alquileres (Código Civil Boliviano)**:\n- El propietario está obligado a devolver el depósito de garantía al finalizar el contrato y verificar que el inmueble se encuentre sin daños y con servicios al día.\n- Puede utilizar nuestro generador de modelos de carta en la pestaña 'Plantillas & Cartas' para exigir formalmente su restitución.";
+            } else {
+                return "Entiendo su consulta legal. Para este caso específico conforme a la normativa municipal del GAMLP y la legislación boliviana, le recomiendo verificar si su trámite requiere presentación presencial en la **Subalcaldía de su Macrodistrito** o revisión digital a través de la plataforma **i-Gob 24/7**. También puede usar nuestras pestañas superiores para generar plantillas escritas.";
+            }
+        }
+
+        // Manejo de envío de mensajes en el Chat
+        function handleChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('userInput');
+            const chatBox = document.getElementById('chatBox');
+            if (!input || !chatBox || !input.value.trim()) return;
+
+            const userText = input.value.trim();
+            
+            // Agregar mensaje del usuario
+            const userMsgHTML = `
+                <div class="flex items-start gap-3 justify-end">
+                    <div class="max-w-[85%] bg-slate-900 text-white rounded-2xl rounded-tr-none p-4 text-xs shadow-sm space-y-1">
+                        <div class="font-bold text-[10px] text-amber-400">Ciudadano</div>
+                        <p class="leading-relaxed">${escapeHtml(userText)}</p>
+                    </div>
+                </div>
+            `;
+            chatBox.insertAdjacentHTML('beforeend', userMsgHTML);
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Simular tiempo de respuesta
+            const typingId = 'typing-' + Date.now();
+            const typingHTML = `
+                <div id="${typingId}" class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-slate-900 text-amber-400 flex items-center justify-center flex-shrink-0 text-xs font-bold shadow">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-none p-3 text-slate-500 shadow-sm flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-slate-400 typing-dot"></span>
+                        <span class="w-2 h-2 rounded-full bg-slate-400 typing-dot"></span>
+                        <span class="w-2 h-2 rounded-full bg-slate-400 typing-dot"></span>
+                    </div>
+                </div>
+            `;
+            chatBox.insertAdjacentHTML('beforeend', typingHTML);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            setTimeout(() => {
+                const typingEl = document.getElementById(typingId);
+                if (typingEl) typingEl.remove();
+
+                const botReply = getBotResponse(userText);
+                const botMsgHTML = `
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-slate-900 text-amber-400 flex items-center justify-center flex-shrink-0 text-xs font-bold shadow">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                        <div class="max-w-[85%] bg-white border border-slate-200 rounded-2xl rounded-tl-none p-4 text-slate-800 shadow-sm space-y-2">
+                            <div class="font-bold text-xs text-slate-900 flex items-center justify-between">
+                                <span>Lic. Gabriel — Asesor Jurídico GAMLP</span>
+                                <span class="text-[10px] text-slate-400 font-normal">Ahora</span>
+                            </div>
+                            <div class="text-xs leading-relaxed whitespace-pre-line">${botReply}</div>
+                        </div>
+                    </div>
+                `;
+                chatBox.insertAdjacentHTML('beforeend', botMsgHTML);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 900);
+        }
+
+        function sendQuickTopic(topicText) {
+            switchTab('chat');
+            setLegalMode('chat');
+            const input = document.getElementById('userInput');
+            if (input) {
+                input.value = topicText;
+                const form = document.getElementById('chatForm');
+                if (form) form.dispatchEvent(new Event('submit'));
+            }
+        }
+
+        function clearChat() {
+            const chatBox = document.getElementById('chatBox');
+            if (!chatBox) return;
+            chatBox.innerHTML = `
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-slate-900 text-amber-400 flex items-center justify-center flex-shrink-0 text-xs font-bold shadow">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <div class="max-w-[85%] bg-white border border-slate-200 rounded-2xl rounded-tl-none p-4 text-slate-800 shadow-sm space-y-2">
+                        <div class="font-bold text-xs text-slate-900 flex items-center justify-between">
+                            <span>Lic. Gabriel — Asesor Jurídico GAMLP</span>
+                            <span class="text-[10px] text-slate-400 font-normal">Ahora</span>
+                        </div>
+                        <p class="text-xs leading-relaxed">
+                            Sesión reiniciada. ¿En qué otra consulta legal o trámite municipal le puedo asesorar?
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
